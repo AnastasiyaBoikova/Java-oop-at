@@ -1,8 +1,14 @@
 package Lesson1;
 
 public class Cat implements Move {
+    String name;
     int dRun;
     int hJump;
+    public Cat (String name, int dRun, int hJump){
+        this.name = name;
+        this. dRun = dRun;
+        this. hJump = hJump;
+    }
 
     public void run() {
         System.out.println("Кот бежит ");
@@ -36,11 +42,5 @@ public class Cat implements Move {
             System.out.println("Кот не смог прыгнуть");
 
     }
-//    public boolean jumpWall2(int a) {
-//        if (hJump > a) {
-//            System.out.println("Кот успешно прыгнул");
-//        }
-//
-//        return false;
-//    }
+
 }

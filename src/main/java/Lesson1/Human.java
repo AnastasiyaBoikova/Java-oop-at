@@ -1,8 +1,14 @@
 package Lesson1;
 
 public class Human implements Move {
+    String name;
     int dRun;
     int hJump;
+
+    public Human(String name, int dRun, int hJump) {
+        this.dRun = dRun;
+        this.hJump = hJump;
+    }
 
     public void run() {
         System.out.println("Человек бежит ");
@@ -27,6 +33,7 @@ public class Human implements Move {
         } else
             System.out.println("Человек не смог пробежать");
 
+
     }
 
     public void jumpWall1(int a) {
@@ -35,16 +42,8 @@ public class Human implements Move {
         } else
             System.out.println("Человек не смог прыгнуть");
 
+
     }
 
-//    public boolean jumpWall2(int a) {
-//        if (hJump > a) {
-//            System.out.println("Человек успешно прыгнул");
-//            return true;
-//        }
-//        else
-//            return false;
-//
-//    }
 
 }

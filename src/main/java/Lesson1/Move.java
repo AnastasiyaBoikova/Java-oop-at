@@ -1,6 +1,8 @@
 package Lesson1;
 
 public interface Move {
+
+
     void run();
 
     void jump();
@@ -13,5 +15,4 @@ public interface Move {
 
     void jumpWall1(int a);
 
-  // boolean jumpWall2(int a);
-}
+ }
