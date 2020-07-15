@@ -52,7 +52,9 @@ public class Start {
 
         System.out.println("Гонка началась");
         for (int i = 0; i < barriers.length; i++) {
+            System.out.println();
             System.out.println("Препятствие " + (i + 1));
+            System.out.println();
             for (int j = 0; j < players.length; j++) {
 
                 barriers[i].check(players[j]);
