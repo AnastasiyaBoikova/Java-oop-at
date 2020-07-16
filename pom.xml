@@ -27,7 +27,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ru.geekbrains.java.oop.at.Start</mainClass>
+                            <mainClass>Lesson1.Start</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
