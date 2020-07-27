@@ -8,6 +8,17 @@
     <artifactId>Java-oop-at</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <maven.compiler.target> 1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <project.build.sourcEencoding>UTF-8</project.build.sourcEencoding>
+
+        <selenium-java.version>3.141.59</selenium-java.version>
+        <junit-jupiter-api.version>5.6.2</junit-jupiter-api.version>
+        <hamcrest.version>2.2</hamcrest.version>
+
+    </properties>
+
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -25,8 +36,15 @@
             <scope>test</scope>
         </dependency>
 
-    </dependencies>
+        <dependency>
 
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>2.2</version>
+
+        </dependency>
+
+    </dependencies>
 
     <build>
         <plugins>
