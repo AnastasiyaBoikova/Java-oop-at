@@ -1,5 +1,6 @@
 package ru.geekbrains.java.oop.at;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
+import static org.hamcrest.Matchers.*;
 
 
 public class SearchTest {
@@ -63,46 +65,37 @@ public class SearchTest {
 
         String Profession = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"professions\"] span")).getText();
         int professionCount = Integer.parseInt(Profession.trim());
-        Assertions.assertTrue(professionCount >= 2, "Профессий найдено меньше 2");
-        System.out.println("Профессий найдено " + professionCount);
+        MatcherAssert.assertThat(professionCount, greaterThanOrEqualTo(2));
 
         String Course = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"courses\"] span")).getText();
         int courseCount = Integer.parseInt(Course.trim());
-        Assertions.assertTrue(courseCount > 15, "Курсов найдено меньше 15");
-        System.out.println("Курсов найдено " + courseCount);
+        MatcherAssert.assertThat(courseCount, greaterThan(15));
 
         String Event = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"webinars\"] span")).getText();
         int eventCount = Integer.parseInt(Event.trim());
-        Assertions.assertTrue(eventCount > 180 && eventCount < 300, "Вебинаров надено некорректное число ");
-        System.out.println("Вебинаров найдено " + eventCount);
+        MatcherAssert.assertThat(eventCount, allOf(greaterThan(180), lessThan(300)));
 
 
         String Blogs = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"blogs\"] span")).getText();
         int blogsCount = Integer.parseInt(Blogs.trim());
-        System.out.println("Блогов найдено " + blogsCount);
-        Assertions.assertTrue(blogsCount > 300, "Блогов найдено меньше 300");
-
+        MatcherAssert.assertThat(blogsCount, greaterThan(300));
 
         String Forums = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"forums\"] span")).getText();
         int forumsCount = Integer.parseInt(Forums.trim());
-        System.out.println("Форумов найдено " + forumsCount);
-        Assertions.assertTrue(forumsCount != 350, "Форумов найдено 350");
-
+        MatcherAssert.assertThat(forumsCount, not(350));
 
         String Tests = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"tests\"] span")).getText();
         int testsCount = Integer.parseInt(Tests.trim());
-        Assertions.assertTrue(testsCount > 0, "Тестов найдено больше 0");
-        System.out.println("Тестов найдено " + testsCount);
+        MatcherAssert.assertThat(testsCount, greaterThan(0));
 
         sleep(10000);
 
         String text = firefoxDriver.findElementsByCssSelector("[class=\"event__title h3 search_text\"]").get(0).getText();
         System.out.println(text);
-        Assertions.assertEquals("Java Junior. Что нужно знать для успешного собеседования?", text);
-
+        MatcherAssert.assertThat(text, equalToIgnoringCase("Java Junior. Что нужно знать для успешного собеседования?"));
 
         WebElement gbCompany = firefoxDriver.findElement(By.xpath("//div[@class='company-items']//h3/a[contains(text(),'GeekBrains')]"));
-        Assertions.assertNotNull(gbCompany, "В Проектах и компаниях не отображается GeekBrains");
+        MatcherAssert.assertThat(gbCompany.getText(), containsString("GeekBrains"));
 
 
     }
