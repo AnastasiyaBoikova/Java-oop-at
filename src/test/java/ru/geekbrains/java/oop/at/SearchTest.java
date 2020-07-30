@@ -1,38 +1,19 @@
 package ru.geekbrains.java.oop.at;
 
 import org.hamcrest.MatcherAssert;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import ru.geekbrains.java.oop.at.BaseTest.BaseTest;
 
-import javax.sound.midi.Soundbank;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import ru.geekbrains.java.oop.at.page.SearchBlogs;
 
 import static java.lang.Thread.sleep;
 import static org.hamcrest.Matchers.*;
 
-
-public class SearchTest {
-    FirefoxDriver firefoxDriver;
-
-    @BeforeEach
-    public void beforeEach() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver");
-        FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-popup-blocking");
-        firefoxDriver = new FirefoxDriver(options);
-        firefoxDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        firefoxDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-        firefoxDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
-        firefoxDriver.get("https://geekbrains.ru/events");
-    }
+@DisplayName("Тестирование поиска")
+public class SearchTest extends BaseTest {
 
     //Нажать на кнопку Поиск
 //        В поле Поиск ввести текст: java
@@ -45,68 +26,53 @@ public class SearchTest {
 //        Форумов не 350
 //        Тестов не 0
 //        В Проектах и компаниях отображается GeekBrains
-
+    @DisplayName("Проверка блоков")
     @Test
-
+    // @MethodSource("SearchBlogs")
     public void Search() throws InterruptedException {
 
-        firefoxDriver.findElement(By.cssSelector("[class=\"show-search-form\"]")).click();
-        firefoxDriver.findElementByCssSelector("[class=\"search-panel__search-field\"]").sendKeys("java");
-        firefoxDriver.findElementByXPath("//h2[text()='Профессии']");
-        firefoxDriver.findElementByCssSelector("[data-tab=\"professions\"]");
-        firefoxDriver.findElementByXPath("//h2[text()='Курсы']");
-        firefoxDriver.findElementByXPath("//h2[text()='Вебинары']");
-        firefoxDriver.findElementByXPath("//h2[text()='Курсы']");
-        firefoxDriver.findElementByXPath("//h2[text()='Блоги']");
-        firefoxDriver.findElementByXPath("//h2[text()='Форум']");
-        firefoxDriver.findElementByXPath("//h2[text()='Тесты']");
-        firefoxDriver.findElementByXPath("//h2[text()='Проекты и компании']");
+        firefoxDriver.get("https://geekbrains.ru/events");
+        SearchBlogs searchBlogs = new SearchBlogs(firefoxDriver);
+        searchBlogs.searchJava("Java");
 
+        String[] nameBlog = {"Профессии", "Курсы", "Вебинары", "Блог", "Форум", "Тесты", "Проекты и компании"};
+        for (int i = 0; i < nameBlog.length; i++) {
 
-        String Profession = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"professions\"] span")).getText();
-        int professionCount = Integer.parseInt(Profession.trim());
-        MatcherAssert.assertThat(professionCount, greaterThanOrEqualTo(2));
-
-        String Course = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"courses\"] span")).getText();
-        int courseCount = Integer.parseInt(Course.trim());
-        MatcherAssert.assertThat(courseCount, greaterThan(15));
-
-        String Event = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"webinars\"] span")).getText();
-        int eventCount = Integer.parseInt(Event.trim());
-        MatcherAssert.assertThat(eventCount, allOf(greaterThan(180), lessThan(300)));
-
-
-        String Blogs = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"blogs\"] span")).getText();
-        int blogsCount = Integer.parseInt(Blogs.trim());
-        MatcherAssert.assertThat(blogsCount, greaterThan(300));
-
-        String Forums = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"forums\"] span")).getText();
-        int forumsCount = Integer.parseInt(Forums.trim());
-        MatcherAssert.assertThat(forumsCount, not(350));
-
-        String Tests = firefoxDriver.findElement(By.cssSelector(".search-page-tabs [data-tab=\"tests\"] span")).getText();
-        int testsCount = Integer.parseInt(Tests.trim());
-        MatcherAssert.assertThat(testsCount, greaterThan(0));
+            searchBlogs.searchBlog(nameBlog[i]);
+        }
 
         sleep(10000);
 
-        String text = firefoxDriver.findElementsByCssSelector("[class=\"event__title h3 search_text\"]").get(0).getText();
-        System.out.println(text);
-        MatcherAssert.assertThat(text, equalToIgnoringCase("Java Junior. Что нужно знать для успешного собеседования?"));
+        MatcherAssert.assertThat(searchBlogs.getJavaJunior().getText(),
+                equalToIgnoringCase("Java Junior. Что нужно знать для успешного собеседования?"));
 
-        WebElement gbCompany = firefoxDriver.findElement(By.xpath("//div[@class='company-items']//h3/a[contains(text(),'GeekBrains')]"));
-        MatcherAssert.assertThat(gbCompany.getText(), containsString("GeekBrains"));
-
-
+        MatcherAssert.assertThat(searchBlogs.getGeekBrains().getText(), containsString("GeekBrains"));
     }
 
 
-    @AfterEach
-    public void afterEach() {
+//        firefoxDriver.findElement(By.cssSelector("[class=\"show-search-form\"]")).click()//
+//        firefoxDriver.findElementByCssSelector("[class=\"search-panel__search-field\"]").sendKeys("java");
+//        firefoxDriver.findElementByXPath("//h2[text()='Профессии']");
+//       firefoxDriver.findElementByXPath("//h2[text()='Курсы']");
+//        firefoxDriver.findElementByXPath("//h2[text()='Вебинары']");
+//        firefoxDriver.findElementByXPath("//h2[text()='Блоги']");
+//        firefoxDriver.findElementByXPath("//h2[text()='Форум']");
+//        firefoxDriver.findElementByXPath("//h2[text()='Тесты']");
+//        firefoxDriver.findElementByXPath("//h2[text()='Проекты и компании']");
 
-        firefoxDriver.quit();
-    }
 
+//    public static Stream<Arguments> SearchBlogs() {
+//        return Stream.of(
+//                Arguments.of("Профессии"),
+//                Arguments.of("Курсы"),
+//                Arguments.of("Вебинары"),
+//                Arguments.of("Форум"),
+//                Arguments.of("Блог"),
+//                Arguments.of("Тесты"),
+//                Arguments.of("Проекты и компании")
+//
+//        );
+//    }
 
 }
 

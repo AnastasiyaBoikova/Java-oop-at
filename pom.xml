@@ -16,7 +16,8 @@
         <selenium-java.version>3.141.59</selenium-java.version>
         <junit-jupiter-api.version>5.6.2</junit-jupiter-api.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <junit-jupiter>5.6.2</junit-jupiter>
+        <junit-jupiter.version>5.6.2</junit-jupiter.version>
+        <webdrivermanager.version>4.1.0</webdrivermanager.version>
     </properties>
 
 
@@ -25,22 +26,21 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
+            <version>${selenium-java.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.6.2</version>
-            <scope>test</scope>
+            <version>${junit-jupiter-api.version}</version>
         </dependency>
 
         <dependency>
 
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
-            <version>2.2</version>
+            <version>${hamcrest.version}</version>
 
         </dependency>
         <dependency>
@@ -54,8 +54,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.6.2</version>
-            <scope>test</scope>
+            <version>${junit-jupiter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
         </dependency>
 
 
