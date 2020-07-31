@@ -1,5 +1,7 @@
 package ru.geekbrains.java.oop.at;
 
+import io.qameta.allure.*;
+import jdk.jfr.Description;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,11 +17,16 @@ import ru.geekbrains.java.oop.at.page.BasePage;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-
+@Epic("Проверка сайта geekbrains.ru")
+@Feature("Проверка бокового меню")
+@Story("Проверка перехода на страницы")
 public class NavigationTest extends BaseTest {
 
     @ParameterizedTest
+    @Description("Проверка страницы {namePage}")
     @MethodSource("NavigationCheck")
+    @Issue("BUG 100502")
+    @TmsLink("Test-102")
     void check(String namePage) {
         firefoxDriver.get("https://geekbrains.ru/events");
 

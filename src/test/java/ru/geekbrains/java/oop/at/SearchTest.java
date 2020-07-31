@@ -1,5 +1,6 @@
 package ru.geekbrains.java.oop.at;
 
+import io.qameta.allure.*;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,9 +27,14 @@ public class SearchTest extends BaseTest {
 //        Форумов не 350
 //        Тестов не 0
 //        В Проектах и компаниях отображается GeekBrains
-    @DisplayName("Проверка блоков")
+
+    @Epic("Проверка сайта geekbrains.ru")
+    @Feature("Проверка поиска")
+    @Story("Проверка поиска по слову 'Java' ")
+    @DisplayName("Проверка блоков страницы")
     @Test
-    // @MethodSource("SearchBlogs")
+    @Issue("BUG 100504")
+    @TmsLink("Test-104")
     public void Search() throws InterruptedException {
 
         firefoxDriver.get("https://geekbrains.ru/events");

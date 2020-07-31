@@ -1,5 +1,6 @@
 package ru.geekbrains.java.oop.at.page;
 
+import io.qameta.allure.Step;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +16,7 @@ import static org.hamcrest.Matchers.lessThan;
 public class SearchBlogs {
 
     // Поиск блоков
-    @FindBy(xpath = "//h2[text()='Профессии']")
+    @FindBy(css= "[id=\"professions\"] h2")
     private WebElement blogProfessions;
 
     @FindBy(xpath = "//h2[text()='Курсы']")
@@ -23,6 +24,10 @@ public class SearchBlogs {
 
     @FindBy(xpath = "//h2[text()='Вебинары']")
     private WebElement blogEvents;
+
+    public WebElement getBlogProfessions() {
+        return blogProfessions;
+    }
 
     @FindBy(xpath = "//h2[text()='Блоги']")
     private WebElement blogTopics;
@@ -86,17 +91,18 @@ public class SearchBlogs {
         return javaJunior;
     }
 
-    public SearchBlogs searchJava(String java) {
+    @Step("Поиск слова 'Java'")
+        public SearchBlogs searchJava(String java) {
         buttonSearch.click();
         sendSearch.sendKeys(java);
         return this;
     }
 
-
+    @Step("Проверка блоков по количеству контента")
     public void searchBlog(String nameBlog) {
         switch (nameBlog) {
             case "Профессии": {
-
+                    getBlogProfessions();
                 MatcherAssert.assertThat(Integer.parseInt(numberProfessions.getText().trim()),
                         greaterThanOrEqualTo(2));
                 break;

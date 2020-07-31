@@ -1,5 +1,6 @@
 package ru.geekbrains.java.oop.at.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,10 +32,12 @@ public class PageCourse {
         getCourse().click();
 
     }
+    @Step("Проверка наличия блока 'выборки'")
 
     public WebDriver getSample() {
         return sample;
     }
+    @Step("Проверка наличия блока 'фильтры' ")
 
     public WebElement getFilter() {
         return filter;

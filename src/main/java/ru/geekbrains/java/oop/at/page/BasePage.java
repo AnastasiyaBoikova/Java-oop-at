@@ -1,5 +1,6 @@
 package ru.geekbrains.java.oop.at.page;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
 import org.hamcrest.MatcherAssert;
@@ -24,18 +25,21 @@ public class BasePage {
     @FindBy(css = "[id=\"top-menu\"] h2")
     private WebElement pageName;
 
-    public void checkPageName (String a){
-        Assertions.assertEquals(a, pageName.getText());
+    @Step("Проверка заголовка страницы")
+    public void checkPageName (String name){
+        Assertions.assertEquals(name, pageName.getText());
     }
+    @Step("Проверка заголовка")
 
     public WebElement getHeader() {
         return header;
     }
 
-
+    @Step("Проверка футера")
     public WebElement getFooter() {
         return footer;
     }
+
 
     public WebElement getPageName() {
         return pageName;
