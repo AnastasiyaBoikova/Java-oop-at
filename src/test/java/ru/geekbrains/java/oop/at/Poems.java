@@ -41,6 +41,7 @@ public class Poems {
 
     public static String[] wordList(String line) {
         return line.trim().split("[,;:.!?\\s]+");
+
     }
 
 }

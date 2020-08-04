@@ -6,7 +6,9 @@ import java.util.List;
 public class TelephoneBook {
 
     private String name;
+
     private int number;
+    List<TelephoneBook> arrayBook = new ArrayList<>();
 
 
     public TelephoneBook(String name, int number ) {

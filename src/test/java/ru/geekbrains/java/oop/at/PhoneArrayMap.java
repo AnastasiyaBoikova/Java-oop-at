@@ -1,5 +1,7 @@
 package ru.geekbrains.java.oop.at;
 
+import org.hamcrest.MatcherAssert;
+
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +19,7 @@ public class PhoneArrayMap {
 //    }
 
     public void add(String name, int number) {
-        if (!telDir.containsKey(name)) {
+        if (!telDir.containsKey(name)){
            telDir.put(name, new ArrayList<>());
        }
         telDir.get(name).add(number);

@@ -17,7 +17,6 @@ public class ArrayWords extends Poems {
         System.out.println("Уникальные слова " + uniqueWords.toString());
         System.out.println("Количество уникальных слов " + uniqueWords.size());
 
-
         for (String word : uniqueWords) {
 
             System.out.println("'" + word + "'" + " встречается " + Collections.frequency(arrayWords, word) + " раз");
