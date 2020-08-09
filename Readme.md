@@ -6,11 +6,11 @@
 
 ## Используемые библиотеки
 
-  - [Selenium](#org.seleniumhq.selenium)
-  - [Junit-jupiter](#org.junit.jupiter)
-  - [Hamcrest](#org.hamcrest)
-  - [Allure-junit5](#io.qameta.allure)
-  - [Lombok](#org.projectlombok)
+  - [Selenium](#https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java)
+  - [Junit-jupiter](#https://mvnrepository.com/artifact/org.junit.jupiter)
+  - [Hamcrest](#https://mvnrepository.com/search?q=org.hamcrest)
+  - [Allure-junit5](#https://mvnrepository.com/search?q=io.qameta.allure)
+  - [Lombok](#https://mvnrepository.com/search?q=org.projectlombok)
  
 
 ## Запуск проекта
