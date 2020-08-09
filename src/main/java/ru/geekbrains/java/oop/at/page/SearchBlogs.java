@@ -109,7 +109,6 @@ public class SearchBlogs extends BasePage {
     @Step("Поиск слова 'Java'")
     public SearchBlogs searchJava(String java) throws InterruptedException {
         buttonSearch.click();
-
         sendSearch.sendKeys(java);
         sleep(15000);
 
