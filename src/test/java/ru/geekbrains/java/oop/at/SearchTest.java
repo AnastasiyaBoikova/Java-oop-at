@@ -1,20 +1,21 @@
 package ru.geekbrains.java.oop.at;
 
 import io.qameta.allure.*;
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import ru.geekbrains.java.oop.at.BaseTest.BaseTest;
-
 import ru.geekbrains.java.oop.at.page.SearchBlogs;
 
 import static java.lang.Thread.sleep;
 import static org.hamcrest.Matchers.*;
+import static ru.geekbrains.java.oop.at.block.Navigation.Button.*;
 
+@Execution(ExecutionMode.CONCURRENT)
 @DisplayName("Тестирование поиска")
 public class SearchTest extends BaseTest {
+
 
     //Нажать на кнопку Поиск
 //        В поле Поиск ввести текст: java
@@ -37,48 +38,21 @@ public class SearchTest extends BaseTest {
     @TmsLink("Test-104")
     public void Search() throws InterruptedException {
 
-        firefoxDriver.get("https://geekbrains.ru/events");
-        SearchBlogs searchBlogs = new SearchBlogs(firefoxDriver);
-        searchBlogs.searchJava("Java");
+        new SearchBlogs(firefoxDriver)
+                .openUrl("https://geekbrains.ru/events")
+                .searchJava("Java")
+                .checkBlog(PROFESSION, greaterThanOrEqualTo(2))
+                .checkBlog(COURSES, greaterThan(15))
+                .checkBlog(EVENTS, allOf(greaterThan(180), lessThan(300)))
+                .checkBlog(TOPICS, not(350))
+                .checkBlog(POSTS, greaterThan(300))
+                .checkBlog(TESTS, greaterThan(0))
+                .searchContent(EVENTS, equalToIgnoringCase("Java Junior. Что нужно знать для успешного собеседования?"))
+                .searchContent(CAREER, containsString("GeekBrains"));
 
-        String[] nameBlog = {"Профессии", "Курсы", "Вебинары", "Блог", "Форум", "Тесты", "Проекты и компании"};
-        for (int i = 0; i < nameBlog.length; i++) {
 
-            searchBlogs.searchBlog(nameBlog[i]);
-        }
-
-        sleep(10000);
-
-        MatcherAssert.assertThat(searchBlogs.getJavaJunior().getText(),
-                equalToIgnoringCase("Java Junior. Что нужно знать для успешного собеседования?"));
-
-        MatcherAssert.assertThat(searchBlogs.getGeekBrains().getText(), containsString("GeekBrains"));
     }
 
-
-//        firefoxDriver.findElement(By.cssSelector("[class=\"show-search-form\"]")).click()//
-//        firefoxDriver.findElementByCssSelector("[class=\"search-panel__search-field\"]").sendKeys("java");
-//        firefoxDriver.findElementByXPath("//h2[text()='Профессии']");
-//       firefoxDriver.findElementByXPath("//h2[text()='Курсы']");
-//        firefoxDriver.findElementByXPath("//h2[text()='Вебинары']");
-//        firefoxDriver.findElementByXPath("//h2[text()='Блоги']");
-//        firefoxDriver.findElementByXPath("//h2[text()='Форум']");
-//        firefoxDriver.findElementByXPath("//h2[text()='Тесты']");
-//        firefoxDriver.findElementByXPath("//h2[text()='Проекты и компании']");
-
-
-//    public static Stream<Arguments> SearchBlogs() {
-//        return Stream.of(
-//                Arguments.of("Профессии"),
-//                Arguments.of("Курсы"),
-//                Arguments.of("Вебинары"),
-//                Arguments.of("Форум"),
-//                Arguments.of("Блог"),
-//                Arguments.of("Тесты"),
-//                Arguments.of("Проекты и компании")
-//
-//        );
-//    }
 
 }
 

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AuthorizationPage {
+public class AuthorizationPage  {
 
     @FindBy(css = "[class=\"form-control\"]")
     private WebElement inputLogin;
@@ -22,6 +22,7 @@ public class AuthorizationPage {
     public AuthorizationPage (WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
+
     }
     @Step("Авторизация с логином : {login} пароль: {password}")
         public BasePage authorization (String login, String password){
@@ -32,16 +33,9 @@ public class AuthorizationPage {
         return new BasePage(driver);
     }
 
-
-    public WebElement getInputLogin() {
-        return inputLogin;
-    }
-
-    public WebElement getInputPassword() {
-        return inputPassword;
-    }
-
-    public WebElement getButtonSingIn() {
-        return buttonSingIn;
+    @Step("Открытие страницы {url}")
+    public AuthorizationPage openUrl(String url) {
+        driver.get(url);
+        return this;
     }
 }

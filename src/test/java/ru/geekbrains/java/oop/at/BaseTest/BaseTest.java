@@ -21,7 +21,7 @@ public abstract class BaseTest {
         firefoxDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         firefoxDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         firefoxDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
-      //  firefoxDriver.get("https://geekbrains.ru/events");
+
 
     }
 

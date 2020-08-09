@@ -2,18 +2,19 @@ package ru.geekbrains.java.oop.at.page;
 
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
-
-import org.hamcrest.MatcherAssert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class BasePage {
+    private WebDriver driver;
+
     public BasePage (WebDriver driver){
-        initElements(driver, this);
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(css = "[id='top-menu']")
@@ -26,22 +27,27 @@ public class BasePage {
     private WebElement pageName;
 
     @Step("Проверка заголовка страницы")
-    public void checkPageName (String name){
+    public BasePage checkPageName (String name){
         Assertions.assertEquals(name, pageName.getText());
+        return this;
     }
-    @Step("Проверка заголовка")
 
-    public WebElement getHeader() {
-        return header;
+    @Step("Проверка заголовка")
+    public BasePage checkHeader() {
+        header.isDisplayed();
+        return this;
     }
+
 
     @Step("Проверка футера")
-    public WebElement getFooter() {
-        return footer;
+    public BasePage checkFooter() {
+        footer.isDisplayed();
+        return this;
     }
 
-
-    public WebElement getPageName() {
-        return pageName;
+    @Step("Открытие страницы {url}")
+    public BasePage openUrl(String url) {
+        driver.get(url);
+        return this;
     }
 }

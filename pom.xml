@@ -21,6 +21,7 @@
         <allure-junit5.version>2.13.5</allure-junit5.version>
         <maven-surefire.version>2.22.2</maven-surefire.version>
         <aspectj.version>1.9.4</aspectj.version>
+        <lombok.version>1.18.12</lombok.version>
 
     </properties>
 
@@ -63,6 +64,11 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <version>${allure-junit5.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
 
     </dependencies>

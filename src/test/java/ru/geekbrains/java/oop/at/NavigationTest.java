@@ -1,57 +1,52 @@
 package ru.geekbrains.java.oop.at;
 
 import io.qameta.allure.*;
-import jdk.jfr.Description;
-import org.junit.jupiter.api.*;
+//import jdk.jfr.Description;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.support.PageFactory;
+
 import ru.geekbrains.java.oop.at.BaseTest.BaseTest;
 import ru.geekbrains.java.oop.at.block.Navigation;
-import ru.geekbrains.java.oop.at.page.BasePage;
+import ru.geekbrains.java.oop.at.block.Navigation.Button;
 
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+@Execution(ExecutionMode.CONCURRENT)
 @Epic("Проверка сайта geekbrains.ru")
 @Feature("Проверка бокового меню")
 @Story("Проверка перехода на страницы")
 public class NavigationTest extends BaseTest {
 
-    @ParameterizedTest
-    @Description("Проверка страницы {namePage}")
-    @MethodSource("NavigationCheck")
-    @Issue("BUG 100502")
-    @TmsLink("Test-102")
-    void check(String namePage) {
-        firefoxDriver.get("https://geekbrains.ru/events");
 
-        BasePage basePage = new BasePage(firefoxDriver);
-        Navigation navigation = new Navigation(firefoxDriver);
-
-        navigation.getButton(namePage).click();
-        basePage.checkPageName(namePage);
-
-        basePage.getFooter();
-        basePage.getHeader();
-    }
-
-    public static Stream<Arguments> NavigationCheck() {
+    public static Stream<Button> navigationCheck() {
         return Stream.of(
-                Arguments.of("Курсы"),
-                Arguments.of("Вебинары"),
-                Arguments.of("Форум"),
-                Arguments.of("Блог"),
-                Arguments.of("Тесты"),
-                Arguments.of("Карьера")
-
+                Button.COURSES,
+                Button.EVENTS,
+                Button.TOPICS,
+                Button.POSTS,
+                Button.TESTS,
+                Button.CAREER
         );
     }
 
+    @ParameterizedTest
+    @Description("Проверка страницы {namePage}")
+    @MethodSource("navigationCheck")
+    @Issue("BUG 100502")
+    @TmsLink("Test-102")
+    public void check(Button button) {
+
+        new Navigation(firefoxDriver)
+                .openUrl("https://geekbrains.ru/events")
+                .clickButton(button)
+                .checkPageName(button.getText())
+                .checkFooter()
+                .checkHeader();
+
+
+    }
 }
 
 
